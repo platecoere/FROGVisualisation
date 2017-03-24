@@ -10,12 +10,13 @@ export default class Pauses extends Component {
           			['',   3,  0,      1],
           			['',   6,  0,      5],
           			['',   10,  0,     4],
-          			['',   14,  0,    10],
+          			['',   14,  0,    20],
           			['',   17,  0,     5],
           			['',   20,  0,     2],
+                ['',   26,  0,    10],
         	],
       		options: {
-        	title: 'Number of Pauses during the Video',
+        	title: 'Number of Pauses during Video',
         	hAxis: { title: 'Time', minValue: 0, maxValue: 20, gridlines: { count: 5 }},
         	vAxis: {minValue: 0, maxValue: 0, gridlines: { count: 0 }},
         	colorAxis: {colors: ['white', 'red']}
