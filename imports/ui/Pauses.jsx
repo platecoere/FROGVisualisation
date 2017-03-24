@@ -21,17 +21,20 @@ export default class Pauses extends Component {
         	colorAxis: {colors: ['white', 'red']}
  			}
  		};
- 	}      
+ 	}
 
 	render() {
 		return (
-			<Chart
-				chartType="BubbleChart"
-				data={this.state.data}
-				options={this.state.options}
-				width={'1000px'}
-        		height={'200px'}
-			/>
+      <div>
+        <h1>Visualisation</h1>
+  			<Chart
+  				chartType="BubbleChart"
+  				data={this.state.data}
+  				options={this.state.options}
+  				width={'1000px'}
+          		height={'200px'}
+  			/>
+      </div>
 		);
 	}
 }
