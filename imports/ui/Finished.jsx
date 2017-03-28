@@ -4,7 +4,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 
 import { Events } from '../api/events'
 
-const PieChart = ({ numberPause, numberPlay, numberSeek }) => 
+const PieChart = ({ notFinished, finished }) => 
   <Chart
     chartType="PieChart"
     width="100%"
@@ -18,10 +18,22 @@ const PieChart = ({ numberPause, numberPlay, numberSeek }) =>
 
 export default createContainer(
   () => ({ 
-    numberPause: Events.find({ EventType: 'Video.Pause' }).count(),
+    time: Events.find({ EventType: 'Video.Pause' }).count(),
     numberPlay: Events.find({ EventType: 'Video.Play' }).count(),
     numberSeek: Events.find({ EventType: 'Video.Seek' }).count()
   }),
   PieChart
 )
 
+/* students not watching :
+
+- finished video
+- abandonned watching
+
+- on graph : nbr watching, nbr done watching, nbr that abandonned
+
+
+
+
+
+*/

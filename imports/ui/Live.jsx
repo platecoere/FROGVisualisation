@@ -15,7 +15,8 @@ export default class Pauses extends Component {
     };
 
     return <RTChart
-            fields={['Car','Bus']}
-            data={data} />
+      fields={['Car','Bus']}
+      data={data} 
+    />
   }
 }

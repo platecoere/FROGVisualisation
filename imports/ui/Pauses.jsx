@@ -33,9 +33,15 @@ export default class Pauses extends Component {
   				data={this.state.data}
   				options={this.state.options}
   				width={'1000px'}
-          		height={'200px'}
+          height={'200px'}
   			/>
       </div>
 		);
 	}
 }
+
+/*export default createContainer(() => {
+  return {
+    pauses: Tasks.find({}).fetch(),
+  };
+}, App);*/

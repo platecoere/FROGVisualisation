@@ -13,10 +13,9 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <DataHandler />
-        <Pauses/>
-		    <FastForward/>
-		    <WatchingSpeed/>
+        <DataHandler/>
+        <FastForward/>
+        <WatchingSpeed/>
         <AreaChart/>
       </div>
     );
