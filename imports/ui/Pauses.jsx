@@ -1,47 +1,39 @@
 import React, { Component, PropTypes } from 'react';
 import { Chart } from 'react-google-charts';
+import { createContainer } from 'meteor/react-meteor-data';
 
-export default class Pauses extends Component {
-	constructor(props) {
-    	super(props);
-    	this.state = {
-      		data: [
-          			['ID', 'X', 'Y', 'Nbr of Pauses'],
-          			['',   3,  0,      1],
-          			['',   6,  0,      5],
-          			['',   10,  0,     4],
-          			['',   14,  0,    20],
-          			['',   17,  0,     5],
-          			['',   20,  0,     2],
-                ['',   26,  0,    10],
-        	],
-      		options: {
-        	title: 'Number of Pauses during Video',
-        	hAxis: { title: 'Time', minValue: 0, maxValue: 20, gridlines: { count: 5 }},
-        	vAxis: {minValue: 0, maxValue: 0, gridlines: { count: 0 }},
-        	colorAxis: {colors: ['white', 'red']}
- 			}
- 		};
- 	}
+import { Times } from '../api/events'
 
-	render() {
-		return (
-      <div>
-        <h1>Visualisation</h1>
-  			<Chart
-  				chartType="BubbleChart"
-  				data={this.state.data}
-  				options={this.state.options}
-  				width={'1000px'}
-          height={'200px'}
-  			/>
-      </div>
-		);
-	}
+
+const Pauses = ({ data }) => {
+
+  const d = [['ID', 'X', 'Y', 'Nbr of Pauses']]
+  if (data) {
+    Object.keys(data.data).forEach(
+      (key, index) => d.push([
+        '', parseInt(key), data['data'][key], data['data'][key]
+      ])
+    )
+  }
+
+  return(<div>
+    <h1>Visualisation</h1>
+    <Chart
+      chartType="BubbleChart"
+      data={d}
+      options={{
+        title: 'Number of Pauses during Video',
+        hAxis: { title: 'Time', minValue: 0, maxValue: 60, gridlines: { count: 5 }},
+        vAxis: { minValue: 0, maxValue: 0, gridlines: { count: 0 }},
+        colorAxis: {colors: ['white', 'red']}
+      }}
+      width={'1000px'}
+      height={'500px'}
+    />
+  </div>);
 }
 
-/*export default createContainer(() => {
-  return {
-    pauses: Tasks.find({}).fetch(),
-  };
-}, App);*/
+export default createContainer(
+  () => ({
+    data: Times.findOne(),
+  }), Pauses );

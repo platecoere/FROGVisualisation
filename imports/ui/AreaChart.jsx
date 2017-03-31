@@ -1,7 +1,51 @@
 import React, { Component, PropTypes } from 'react';
 import { Chart } from 'react-google-charts';
+import { createContainer } from 'meteor/react-meteor-data';
 
-export default class AreaChart extends Component {
+import { Events } from '../api/events'
+import { SlowSpeed } from '../api/events'
+import { NormalSpeed } from '../api/events'
+import { FastSpeed } from '../api/events'
+
+
+const AreaChart = ({slow, normal, fast}) => {
+  const d = [["Time","Slow","Normal", "Fast"]]
+  if (slow && normal && fast) {
+      Object.keys(data.data).forEach(
+        (key, index) => d.push([
+          '', slow.slow[key], normal.normal[key], fast.fast[key]
+        ])
+      )
+  }
+
+  <Chart
+    chartType="AreaChart"
+    width="100%"
+    data={d}
+    options={{
+        "title":"Average Watching Speed of Students (2)",
+        "isStacked":'relative',
+        "colors":['red','green', 'blue']
+      }}
+  />
+}
+
+export default createContainer(
+  () => ({
+    slow: SlowSpeed.findOne(),
+    normal: NormalSpeed.findOne(),
+    fast: FastSpeed.findOne(),
+  }), AreaChart );
+
+
+/*
+- We need to count the number of students
+  watching @ speeds 1.0, 1.5 and 2.0
+- Do that in events.js or here?
+*/
+
+
+/*export default class AreaChart extends Component {
 	constructor(props) {
     	super(props);
     	this.state = {
@@ -46,4 +90,4 @@ export default class AreaChart extends Component {
         </div>
     	);
   	}
-}
+}*/

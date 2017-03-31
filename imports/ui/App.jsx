@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import MyChart from './MyChart.jsx';
 import Pauses from './Pauses.jsx';
 import Live from './Live.jsx';
+//import aDD from './aDD.jsx';
 
 import DataHandler from './DataHandler';
 import FastForward from './FastForward.jsx'; 
@@ -14,9 +15,9 @@ export default class App extends Component {
     return (
       <div>
         <DataHandler/>
-        <FastForward/>
         <WatchingSpeed/>
-        <AreaChart/>
+        <Pauses/>
+        <FastForward/>
       </div>
     );
   }
