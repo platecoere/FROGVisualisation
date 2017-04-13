@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 class TimedComponentClass extends Component {
+
   constructor(props: Object) {
     super(props);
     this.state = {
@@ -39,8 +40,7 @@ class TimedComponentClass extends Component {
   }
 }
 
-export default (component, interval) =>
-  (props) => (
+export default ({ component, interval, props }) => (
     <TimedComponentClass
       component={component}
       interval={interval}
