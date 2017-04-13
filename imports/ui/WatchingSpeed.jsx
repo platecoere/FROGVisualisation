@@ -4,18 +4,23 @@ import { createContainer } from 'meteor/react-meteor-data';
 
 import { Events } from '../api/events'
 
-const PieChart = ({ numberPause, numberPlay, numberSeek }) => 
+const PieChart = ({ numberPause, numberPlay, numberSeek }) => {
+  
+  return(
+  <div>
   <Chart
     chartType="PieChart"
     width="100%"
     data={[["type","n of event"],["Pause", numberPause],['Play', numberPlay],['Seek', numberSeek]]}
     options={{
-      "title":"title",
+      "title":"",
       "is3D":false,
       "pieHole": 0.4,
       "slices": [{color: 'red'}, {color: 'green'}, {color: 'blue'}]
     }}
   />
+  </div>);
+}
 
 export default createContainer(
   () => ({ 

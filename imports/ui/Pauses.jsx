@@ -17,12 +17,12 @@ const Pauses = ({ data }) => {
   }
 
   return(<div>
-    <h1>Visualisation</h1>
+    <h1>Pauses</h1>
     <Chart
       chartType="BubbleChart"
       data={d}
       options={{
-        title: 'Number of Pauses during Video',
+        title: 'Pauses during Video',
         hAxis: { title: 'Time', minValue: 0, maxValue: 60, gridlines: { count: 5 }},
         vAxis: { minValue: 0, maxValue: 0, gridlines: { count: 0 }},
         colorAxis: {colors: ['white', 'red']}

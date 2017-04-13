@@ -8,34 +8,42 @@ import { NormalSpeed } from '../api/events'
 import { FastSpeed } from '../api/events'
 
 
-const AreaChart = ({slow, normal, fast}) => {
-  const d = [["Time","Slow","Normal", "Fast"]]
-  if (slow && normal && fast) {
-      Object.keys(data.data).forEach(
-        (key, index) => d.push([
-          '', slow.slow[key], normal.normal[key], fast.fast[key]
-        ])
-      )
-  }
+const AreaChart = ({ events }) => {
+  //console.log('hello')
+  //console.log(events)
+  const arr = {}
+  events.forEach(e => {
+    if (!arr[e.StudentID]) {
+      arr[e.StudentID] = []
+    }
 
-  <Chart
-    chartType="AreaChart"
-    width="100%"
-    data={d}
-    options={{
-        "title":"Average Watching Speed of Students (2)",
-        "isStacked":'relative',
-        "colors":['red','green', 'blue']
-      }}
-  />
+
+
+
+
+
+  })
+
+
+
+  // const d = [["Time","Slow","Normal", "Fast"]]
+  // events.forEach(
+  //       (key, index) => d.push([
+  //         '', slow.slow[key], normal.normal[key], fast.fast[key]
+  //       ])
+  //     )
+  // }
+
+  return(
+    <p>bonjour</p>
+  )
 }
 
 export default createContainer(
   () => ({
-    slow: SlowSpeed.findOne(),
-    normal: NormalSpeed.findOne(),
-    fast: FastSpeed.findOne(),
-  }), AreaChart );
+    events: Events.find({ EventType: 'Video.SpeedChange'}).fetch()
+  }), AreaChart
+);
 
 
 /*

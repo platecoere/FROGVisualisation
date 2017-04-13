@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import MyChart from './MyChart.jsx';
 import Pauses from './Pauses.jsx';
-import Live from './Live.jsx';
-//import aDD from './aDD.jsx';
+import Multidimensional from './Multidimensional.jsx';
 
 import DataHandler from './DataHandler';
 import FastForward from './FastForward.jsx'; 
 import WatchingSpeed from './WatchingSpeed.jsx';
 import AreaChart from './AreaChart.jsx';
+import Speed from './Speed.jsx';
 
 // App component - represents the whole app
 export default class App extends Component {
@@ -15,6 +14,8 @@ export default class App extends Component {
     return (
       <div>
         <DataHandler/>
+        <Speed/>
+        <Multidimensional/>
         <WatchingSpeed/>
         <Pauses/>
         <FastForward/>
@@ -22,3 +23,6 @@ export default class App extends Component {
     );
   }
 }
+
+//        <AreaChart/>
+//        <Multidimensional/>

@@ -26,7 +26,7 @@ const DataHandler = ({ count }) => {
     <button onClick={wipeData}>WIPE DATA</button>
   </div>)
 }
-  
+
 
 export default createContainer(
   props => ({ 
