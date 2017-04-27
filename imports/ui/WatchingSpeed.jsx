@@ -22,6 +22,8 @@ const PieChart = ({ numberPause, numberPlay, numberSeek }) => {
   </div>);
 }
 
+
+
 export default createContainer(
   () => ({ 
     numberPause: Events.find({ EventType: 'Video.Pause' }).count(),

@@ -7,12 +7,11 @@ class TimedComponentClass extends Component {
     this.state = {
       timeNow: Date.now()
     };
-    console.log(this.props)
+    //console.log(this.props)
   }
 
   componentDidMount() {
     this._mounted = true;
-    console.log(this.props)
 
     this.interval = setInterval(
       () => {
@@ -30,7 +29,6 @@ class TimedComponentClass extends Component {
   }
 
   render() {
-    console.log(this.props)
     return (
       <this.props.component
         timeNow={this.state.timeNow}

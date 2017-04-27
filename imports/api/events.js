@@ -18,9 +18,9 @@ Meteor.methods({
 
 
     const u = {
-        speed: data.NewSpeed,        // currentSpeed
-        currentTime: data.CurrentTime,
-        timeStamp: (new Date()).getTime()
+        speed: parseFloat(data.NewSpeed),        // currentSpeed
+        currentTime: parseFloat(data.CurrentTime),
+        timeStamp: Date.now()
     }
 
     if (data.EventType == 'Video.Play') {
@@ -29,7 +29,18 @@ Meteor.methods({
     if (data.EventType == 'Video.Pause') {
         u['state'] = 'Pausing'
     }
-        
+
+    /*if (data.NewSpeed < 1.0) {
+        u['tag'] = 1
+    }
+    if (data.NewSpeed == 1.0) {
+        u['tag'] = 2
+    }
+    if (data.NewSpeed > 1.0) {
+        u['tag'] = 3
+    }*/
+
+
     Status.update(
         {_id: data.StudentID},
         u,

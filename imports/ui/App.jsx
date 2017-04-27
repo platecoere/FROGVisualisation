@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Pauses from './Pauses.jsx';
 import Multidimensional from './Multidimensional.jsx';
+import Evolution from './Evolution.jsx';
 
 import DataHandler from './DataHandler';
 import FastForward from './FastForward.jsx'; 
@@ -15,7 +16,7 @@ export default class App extends Component {
       <div>
         <DataHandler/>
         <Speed/>
-        <Multidimensional/>
+        <Evolution/>
         <WatchingSpeed/>
         <Pauses/>
         <FastForward/>
