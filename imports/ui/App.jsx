@@ -17,10 +17,12 @@ export default class App extends Component {
       <div>
         <DataHandler/>
         <Speed/>
-        <Evolution/>
-        <WatchingSpeed/>
         <Pauses/>
+        <Evolution/>
       </div>
     );
   }
 }
+
+//        <Multidimensional/>
+//        <Pauses/>

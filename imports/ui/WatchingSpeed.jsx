@@ -15,7 +15,8 @@ const PieChart = ({ numberPause, numberPlay, numberSeek }) => {
       "title":"",
       "is3D":false,
       "pieHole": 0.4,
-      "slices": [{color: 'red'}, {color: 'green'}, {color: 'blue'}]
+      "slices": [{color: 'red'}, {color: 'green'}, {color: 'blue'}],
+      backgroundColor: { fill:'red' }
     }}
   />
   </div>);
