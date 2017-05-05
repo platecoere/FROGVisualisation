@@ -4,29 +4,36 @@ import { createContainer } from 'meteor/react-meteor-data';
 
 import { Events } from '../api/events'
 
-const PieChart = ({ numberPause, numberPlay, numberSeek }) => {
-  return(
-  <div>
+const PieChart = ({ notFinished, finished }) => 
   <Chart
     chartType="PieChart"
     width="100%"
     data={[["type","n of event"],["Pause", numberPause],['Play', numberPlay],['Seek', numberSeek]]}
     options={{
-      "title":"",
+      "title":"title",
       "is3D":false,
-      "pieHole": 0.4,
       "slices": [{color: 'red'}, {color: 'green'}, {color: 'blue'}]
     }}
   />
-  </div>);
-}
 
 export default createContainer(
   () => ({ 
-    numberPause: Events.find({ EventType: 'Video.Pause' }).count(),
+    time: Events.find({ EventType: 'Video.Pause' }).count(),
     numberPlay: Events.find({ EventType: 'Video.Play' }).count(),
     numberSeek: Events.find({ EventType: 'Video.Seek' }).count()
   }),
   PieChart
 )
 
+/* students not watching :
+
+- finished video
+- abandonned watching
+
+- on graph : nbr watching, nbr done watching, nbr that abandonned
+
+
+
+
+
+*/

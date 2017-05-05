@@ -6,8 +6,8 @@ export default class FastForward extends Component {
     	super(props);
     	this.state = {
       		data: [
-          			['ID', 'X', 'Y', 'Nbr of Pauses'],
-          			['',   4,  0,      2],
+          		['ID', 'X', 'Y', 'Nbr of FastForward'],
+          		['',   4,  0,      2],
                 ['',   5,  0,      1],
                 ['',   6,  0,      1],
                 ['',   7,  0,      1],
