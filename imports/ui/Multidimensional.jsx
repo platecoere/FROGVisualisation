@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { Chart } from 'react-google-charts';
 import { createContainer } from 'meteor/react-meteor-data';
 
+// JUST SOME RANDOM DATA TO CHECK SHOW HOW WE CAN EXPLOIT THE 4 DIMENSIONS OF THE BUBBLE CHART
+
 export default class Multidimensional extends Component {
 	constructor(props) {
     	super(props);

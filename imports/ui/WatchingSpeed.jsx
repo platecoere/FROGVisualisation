@@ -5,7 +5,6 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { Events } from '../api/events'
 
 const PieChart = ({ numberPause, numberPlay, numberSeek }) => {
-  
   return(
   <div>
   <Chart
@@ -21,8 +20,6 @@ const PieChart = ({ numberPause, numberPlay, numberSeek }) => {
   />
   </div>);
 }
-
-
 
 export default createContainer(
   () => ({ 

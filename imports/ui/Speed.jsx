@@ -5,7 +5,10 @@ import TC from './TimeComponent.jsx';
 
 import { Status } from '../api/events';
 
-// ADD STUDENTS FINISHED --------------------
+// -----------------------------------------------------------------
+// TODO
+// ADD STUDENTS FINISHED
+// -----------------------------------------------------------------
 
 const progress = (status, now) => {
   var mySpeed = status.speed
@@ -19,7 +22,6 @@ const progress = (status, now) => {
 }
 
 const Speed = ({ data, timeNow }) => {
-  //console.log(data)
 
   const number = {slow: 0, normal: 0, fast: 0, done: 10}
 
@@ -37,9 +39,6 @@ const Speed = ({ data, timeNow }) => {
       number.done++
     }
   })
-  //console.log("Updated")
-
-  //console.log(number)
 
   return(
   <div>
@@ -59,10 +58,8 @@ const Speed = ({ data, timeNow }) => {
 }
 
 const T = (props) => {
-  //console.log(props)
   return (<TC component={Speed} interval={5000} props={props}/>)
 }
-
 
 export default createContainer(
   () => ({

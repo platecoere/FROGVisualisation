@@ -52,7 +52,7 @@ Meteor.methods({
     if (data.EventType == 'Video.Pause') { // each time we get the event 'Video.Pause', we add the time of the pause to the collection Times
 		Times.update(
     		{_id: data.VideoID}, 
-    		{$inc: {['data.' + (5 *Math.round(data.CurrentTime / 5)).toString()]: 1}},
+    		{$inc: {['data.' + (5 * Math.round(data.CurrentTime / 5)).toString()]: 1}},
     		{upsert: true}
     	)
     }

@@ -7,7 +7,6 @@ class TimedComponentClass extends Component {
     this.state = {
       timeNow: Date.now()
     };
-    //console.log(this.props)
   }
 
   componentDidMount() {

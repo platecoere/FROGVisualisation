@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import Pauses from './Pauses.jsx';
-import Multidimensional from './Multidimensional.jsx';
-import Evolution from './Evolution.jsx';
-
 import DataHandler from './DataHandler';
-import FastForward from './FastForward.jsx'; 
-import WatchingSpeed from './WatchingSpeed.jsx';
-import AreaChart from './AreaChart.jsx';
+
+import Pauses from './Pauses.jsx';
+import Evolution from './Evolution.jsx';
 import Speed from './Speed.jsx';
+
+import WatchingSpeed from './WatchingSpeed.jsx';
+import Multidimensional from './Multidimensional.jsx';
+import FastForward from './FastForward.jsx'; 
+
 
 // App component - represents the whole app
 export default class App extends Component {
@@ -19,11 +20,7 @@ export default class App extends Component {
         <Evolution/>
         <WatchingSpeed/>
         <Pauses/>
-        <FastForward/>
       </div>
     );
   }
 }
-
-//        <AreaChart/>
-//        <Multidimensional/>

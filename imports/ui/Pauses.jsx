@@ -5,28 +5,8 @@ import { createContainer } from 'meteor/react-meteor-data';
 
 import { Times } from '../api/events'
 
-// ADD THRESHOLD -------------------- done
-// USE STATUS INSTEAD OF TIME ? -------------------- no - done
-
 const Pauses = ({ data }) => {
-
-  //const d = [['ID', 'X', 'Y', 'Nbr of Pauses', 'FieldA']]
-  /*if (data) {
-    Object.keys(data.data).forEach(
-      (key, index) => d.push([
-        '', parseInt(key), data['data'][key], data['data'][key], data['data'][key]
-      ])
-    )
-  }*/
-
-  /*if (data) {
-    Object.keys(data.data).forEach(
-      (key, index) => 
-        d.push(['', parseInt(key), data['data'][key], data['data'][key], data['data'][key]
-      ])
-    )
-  }*/
-
+  
   const d = [['ID', 'X', 'Y', 'Nbr of Pauses']]
 
   if (data) {
@@ -58,19 +38,6 @@ const Pauses = ({ data }) => {
     />
   </div>);
 }
-
-/*const T = (props) => {
-  //console.log(props)
-  return (<TC component={Pauses} interval={1000} props={props}/>)
-}
-
-export default createContainer(
-  () => ({
-    data: Times.findOne(),
-  }),
-  T
-);*/
-
 
 export default createContainer(
   () => ({

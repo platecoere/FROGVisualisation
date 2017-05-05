@@ -27,17 +27,9 @@ const DataHandler = ({ count }) => {
   </div>)
 }
 
-
 export default createContainer(
   props => ({ 
     count: Events.find().count() 
-  }), // we need 
-  //props => ({ count: Events.find().count() }),
+  }),
   DataHandler
 )
-
-// PAUSES GRAPH
-// required data : time @ which pause button was pressed
-// create container should be in DataHandler, Pauses or App ?
-// multiple fields ?
-// fetch
