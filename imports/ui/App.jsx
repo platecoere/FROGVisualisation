@@ -5,9 +5,7 @@ import Pauses from './Pauses.jsx';
 import Evolution from './Evolution.jsx';
 import Speed from './Speed.jsx';
 
-import WatchingSpeed from './WatchingSpeed.jsx';
-import Multidimensional from './Multidimensional.jsx';
-import FastForward from './FastForward.jsx'; 
+import PausesNew from './PausesNew.jsx';
 
 
 // App component - represents the whole app
@@ -16,13 +14,10 @@ export default class App extends Component {
     return (
       <div>
         <DataHandler/>
-        <Speed/>
-        <Pauses/>
         <Evolution/>
+        <PausesNew/>
+        <Speed/>
       </div>
     );
   }
 }
-
-//        <Multidimensional/>
-//        <Pauses/>

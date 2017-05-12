@@ -11,46 +11,46 @@ import { Times } from '../api/events'
 // - nothing for the moment
 // -----------------------------------------------------------------
 
-const Pauses = ({ data }) => {
+
+const PausesNew = ({ data }) => {
   
-  const d = [['ID', 'X', 'Y', 'Nbr of Pauses']]
+  const d = [['Time', 'Pauses']]
 
   if (data) {
     Object.keys(data.data).forEach(
       (key, index) => {
         if(data['data'][key] > config.thresholdPauses) {
           d.push([
-            '', 
             parseInt(key), 
-            0, 
             data['data'][key]
           ])
         }
       }
     )
   }
-  
+
   return(
     <div>
-    <h1>Pauses</h1>
+    <h1>PausesNew</h1>
     {d.length > 2 && <Chart
-      chartType="BubbleChart"
+      chartType="ScatterChart"
       data={d}
       options={{
         title: 'Pauses during Video',
-        hAxis: { title: 'Time', minValue: 0, maxValue: config.videoLength, gridlines: { count: 5 }},
-        vAxis: { minValue: 0, maxValue: 0, gridlines: { count: 0 }},
-        colorAxis: {colors: ['yellow', 'red']},
-        bubble: {opacity: 0.5},
+        hAxis: { title: 'Time', minValue: 0, maxValue: config.videoLength, gridlines: { count: 5, color: 'transparent'}, viewWindow: {max : 800}},
+        vAxis: { title: 'Number of Pauses', minValue: 0, gridlines: { count: 5, color: 'transparent' }},
         enableInteractivity: 'true',
         backgroundColor: { fill:'transparent' },
-        sizeAxis: {minSize: 25, maxSize: 25},
         fontSize: 16,
+        colors: ['#660198'],
+        pointShape: 'diamond',
+        pointSize: 12,
         //fontName: 'Avenir',
-        chartArea: {width: '90%', height: '60%'}
+        chartArea: {width: '80%', height: '60%'},
+        legend: { position: 'none'}
       }}
-      width={'1200px'}
-      height={'200px'}
+      width={'1400px'}
+      height={'400px'}
     />}
   </div>);
 }
@@ -58,4 +58,4 @@ const Pauses = ({ data }) => {
 export default createContainer(
   () => ({
     data: Times.findOne(),
-  }), Pauses );
+  }), PausesNew );

@@ -1,5 +1,6 @@
 import { Mongo } from 'meteor/mongo';
 import { Meteor } from 'meteor/meteor';
+import config from '../ui/config.js';
 
 export const Events = new Mongo.Collection('events');
 export const Times = new Mongo.Collection('times'); // create a new collection for times
@@ -7,9 +8,16 @@ export const Speed = new Mongo.Collection('speed');
 export const Status = new Mongo.Collection('status');
 
 
+
 // -----------------------------------------------------------------
 // TODO
 // - When NewSpeed = 'None', use previous speed
+// -----------------------------------------------------------------
+
+// -----------------------------------------------------------------
+// PARAMETERS
+const windowSize = config.windowSizePauses
+
 // -----------------------------------------------------------------
 
 const p = parseFloat
@@ -55,7 +63,7 @@ Meteor.methods({
     if (data.EventType == 'Video.Pause') { // each time we get the event 'Video.Pause', we add the time of the pause to the collection Times
 		Times.update(
     		{_id: data.VideoID}, 
-    		{$inc: {['data.' + (5 * Math.round(data.CurrentTime / 5)).toString()]: 1}},
+    		{$inc: {['data.' + (windowSize * Math.round(data.CurrentTime / windowSize)).toString()]: 1}},
     		{upsert: true}
     	)
     }

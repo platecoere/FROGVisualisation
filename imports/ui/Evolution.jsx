@@ -2,73 +2,40 @@ import React, { Component, PropTypes } from 'react';
 import { Chart } from 'react-google-charts';
 import { createContainer } from 'meteor/react-meteor-data';
 import TC from './TimeComponent.jsx';
-
+import config from './config';
+import utils from './utils';
 
 import { Status } from '../api/events'
 
 // -----------------------------------------------------------------
 // TODO
-// - Some numbers are negative...
-// - Missing slow and fast students, find out why ?
-// - Find out about the NaNs
-// - Use color to show students pausing
+// - nothing for the moment
 // -----------------------------------------------------------------
 
-var max = 0
-var current = 0
+const removeUndefSpeed = speed => !speed ? 1.0 : speed
+const removeUndefState = state => !state ? 'Playing' : state
 
-const progress = (status, now) => {
-  //console.log("Hello")
-  var mySpeed = status.speed
-  /*if (isNaN(mySpeed)) {
-    mySpeed = 1.0
-  }*/
-  if (!mySpeed) {
-    mySpeed = 1.0
-  }
-  if (status.state == 'Pausing') {
-    mySpeed = 0.0
-  }
-  // if (now - status.timeStamp < 0) {
-  //   return 0
-  // }
-    /*console.log('now : ')
-    console.log(now)
-    console.log('timeStamp : ')
-    console.log(status.timeStamp)
-    console.log('diff : ')
-    current = Math.abs(now - status.timeStamp)
-    console.log(current)
-    if (current > max) {
-      max = current
-    }
-    console.log(max)
-    console.log('---------------------')
-  }*/
-  return (now - status.timeStamp) * mySpeed / 1000
-}
+// const getStatus = (s, p) => p == 'Pausing' ? 0 : getStatusNoPausing(s)
+const getStatus = (speed, state) => {
+  const myState = removeUndefState(state)
+  const mySpeed = removeUndefSpeed(speed)
 
-const g = s => s < 1 ? 1 : (s > 1 ? 3 : 2)
-//const g2 = s => s < 1 ? -1 : (s > 1 ? 1 : 0)
-const f = (s, p) => p == 'Pausing' ? 0 : g(s)
-
-const p = s => {
-  if (s == 'Pausing') {
-    return 1
-  } else {
+  if (myState == 'Pausing') {
     return 0
   }
+
+  return getStatusNoPausing(mySpeed)
 }
 
-const myRound = (i, v) => Math.round(i/v) * v
+const getStatusNoPausing = s => s < 1 ? 1 : (s > 1 ? 3 : 2)
 
-const maxVal = 750
+const toWindow = (i, v) => Math.round(i/v) * v
 
-const myFunc = x => x > maxVal ? maxVal : x
+const reachedEnd = x => Math.min(x, config.videoLength)
 
 const Evolution = ({ myData, timeNow }) => {
 
-  const d = [['ID', 'X', 'current status', 'size', 'size2']]
+  const d = [['ID', 'X', 'current status', '', 'size']]
 
   const windows = {};
 
@@ -76,19 +43,8 @@ const Evolution = ({ myData, timeNow }) => {
 
     myData.forEach(
       status => {
-        const x = myFunc(myRound(status.currentTime + progress(status, timeNow), 30))
-        //const x = myRound(status.currentTime, 30)
-        const y = f(status.speed, status.state)
-
-        if(isNaN(x)) {
-          console.log('x is NaN')
-          console.log(status.speed)
-        }
-
-        if(isNaN(y)) {
-          console.log('y is NaN')
-          console.log(status)
-        }
+        const x = reachedEnd(toWindow(status.currentTime + utils.progress(status, timeNow), config.windowSizeEvolution))
+        const y = getStatus(status.speed, status.state)
 
         if (x in windows) {
           if(y in windows[x]){
@@ -105,42 +61,67 @@ const Evolution = ({ myData, timeNow }) => {
   }
 
   Object.keys(windows).forEach(
-    x => Object.keys(x).forEach(
-      y => d.push(['', parseFloat(x), parseFloat(y), windows[x][y], windows[x][y]])
+    x => Object.keys(windows[x]).forEach(
+      y => {
+        if (windows[x][y] > config.thresholdEvolution) {
+          d.push(['', parseFloat(x), parseFloat(y), '', windows[x][y]])
+        }
+      }
     )
   )
 
   return(
     <div>
     <h1>Evolution</h1>
-    <Chart
+    {d.length > 2 && <Chart
       chartType="BubbleChart"
       data={d}
       options={{
-        //title: 'Evolution of the Students',
-        hAxis: { title: 'Time', minValue: -100, maxValue: 750, gridlines: { count: 5 }}, // time axis
-        vAxis: { minValue: -1, maxValue: 3, gridlines: { count: 0 }},
-        colorAxis: {colors: ['green', 'orange', 'red']},
+        title: 'Evolution of the Students',
+        hAxis: { title: 'Time', minValue: 0, maxValue: config.videoLength, gridlines: { count: 5, color: 'transparent' }, viewWindow: {min: 0, max : 800}}, // time axis
+        vAxis: { title: 'Status', baseline: {}, ticks: [{v: 0, f: 'Pausing'}, {v: 1, f: 'Slow'}, {v: 2, f: 'Normal'}, {v: 3, f: 'Fast'}], minValue: -0.5, maxValue: 3.5},
+        colors: ['#660198'],
+        bubble: {opacity: '1.0'},
         enableInteractivity: 'true',
         backgroundColor: { fill:'transparent'},
         //backgroundColor: { fill:'white', stroke: 'black', strokeWidth: 2}
         fontSize: 16,
-        fontName: 'Avenir',
-        chartArea: {width: '90%', height: '80%'}
+
+        //fontName: 'Avenir',
+        chartArea: {width: '80%', height: '80%'},
+        legend: { position: 'none'}
       }}
-      width={'1000px'}
+      width={'1400px'}
       height={'500px'}
-    />
+    />}
   </div>);
 }
 
-const T = (props) => {
-  return (<TC component={Evolution} interval={5000} props={props}/>)
+const timeComponent = (props) => {
+  return (<TC component={Evolution} interval={config.timeComponentInterval / config.accelerationFactor} props={props}/>)
 }
 
 export default createContainer(
   () => ({
     myData: Status.find().fetch()
   }),
-  T
+  timeComponent
 );
+
+// var max = 0
+// var current = 0
+
+// if (now - status < 0) {
+// console.log('now : ')
+// console.log(now)
+// console.log('timeStamp : ')
+// console.log(status.timeStamp)
+// console.log('diff : ')
+// current = Math.abs(now - status.timeStamp)
+// console.log(current)
+// if (current > max) {
+//   max = current
+// }
+// console.log(max)
+// console.log('---------------------')
+// }

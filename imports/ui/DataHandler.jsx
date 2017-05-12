@@ -5,12 +5,18 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { Events } from '../api/events';
 import Dataset from '../data';
 
+import config from './config';
+
+const accelerationFactor = config.accelerationFactor
+
 const sendData = () => {
   Dataset.forEach( data => {
-    setTimeout(
-      () => Meteor.call('insert.event', data),
-      1000 * data.TimeStamp
-    )
+    if(data.TimeStamp < config.videoLength) {
+      setTimeout(
+        () => Meteor.call('insert.event', data),
+        1000 * data.TimeStamp / accelerationFactor
+      )
+    }
   })
 }
 
