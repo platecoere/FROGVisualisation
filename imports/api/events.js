@@ -14,11 +14,7 @@ export const Status = new Mongo.Collection('status');
 // - When NewSpeed = 'None', use previous speed
 // -----------------------------------------------------------------
 
-// -----------------------------------------------------------------
-// PARAMETERS
-const windowSize = config.windowSizePauses
-
-// -----------------------------------------------------------------
+const toWindow = (i, v) => Math.round(i/v) * v
 
 const p = parseFloat
 
@@ -59,13 +55,29 @@ Meteor.methods({
         u,
         {upsert: true}
     )
-    
+
+    const mem = {}
+
     if (data.EventType == 'Video.Pause') { // each time we get the event 'Video.Pause', we add the time of the pause to the collection Times
-		Times.update(
-    		{_id: data.VideoID}, 
-    		{$inc: {['data.' + (windowSize * Math.round(data.CurrentTime / windowSize)).toString()]: 1}},
-    		{upsert: true}
-    	)
+		const x = toWindow(data.CurrentTime, config.windowSizePauses)
+        if (x in mem) {
+            ++mem[x]
+        } else {
+            Times.update(   
+                {_id: data.VideoID}, 
+                {$inc: {['data.' + x.toString() + '.' + data.StudentID ]: 1}},
+                {upsert: true}
+            )
+            mem[x] = 1;
+        }
+        
+        if (x == '610.0') {
+            console.log("Student")
+            console.log(data.StudentID)
+            console.log("paused at")
+            console.log(data.CurrentTime)
+            console.log("----------------------")
+        }
     }
   },
 
@@ -76,3 +88,8 @@ Meteor.methods({
   }
   
 })
+
+
+
+
+

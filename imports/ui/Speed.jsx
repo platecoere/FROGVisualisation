@@ -7,11 +7,6 @@ import utils from './utils';
 
 import { Status } from '../api/events';
 
-// -----------------------------------------------------------------
-// TODO
-// - don't display while size < x
-// -----------------------------------------------------------------
-
 const removeUndefSpeed = speed => !speed ? 1.0 : speed
 
 const Speed = ({ data, timeNow }) => {
@@ -55,6 +50,7 @@ const Speed = ({ data, timeNow }) => {
         fontSize: 16,
         legend: {position: 'left', alignment: 'center'},
         pieSliceTextStyle: {fontSize: 16},
+        tooltip: {trigger: 'selection'},
         chartArea: {width: '80%', height: '80%'}
         //fontName: 'Avenir',
         
@@ -75,7 +71,3 @@ export default createContainer(
   }),
   timeComponent
 );
-
-
-
-

@@ -5,24 +5,18 @@ import config from './config';
 
 import { Times } from '../api/events'
 
-
-// -----------------------------------------------------------------
-// TODO
-// - nothing for the moment
-// -----------------------------------------------------------------
-
-
 const PausesNew = ({ data }) => {
-  
+
   const d = [['Time', 'Pauses']]
 
   if (data) {
     Object.keys(data.data).forEach(
-      (key, index) => {
-        if(data['data'][key] > config.thresholdPauses) {
+      (t, index) => {
+        const l = Object.keys(data['data'][t]).length
+        if(l > config.thresholdPauses) {
           d.push([
-            parseInt(key), 
-            data['data'][key]
+            parseInt(t), 
+            l
           ])
         }
       }
@@ -31,7 +25,7 @@ const PausesNew = ({ data }) => {
 
   return(
     <div>
-    <h1>PausesNew</h1>
+    <h1>Pauses</h1>
     {d.length > 2 && <Chart
       chartType="ScatterChart"
       data={d}

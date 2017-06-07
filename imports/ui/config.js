@@ -3,7 +3,7 @@ export default {
 	videoLength: 750,
 	windowSizeEvolution: 30,
 	windowSizePauses: 5,
-	thresholdPauses: 0,
+	thresholdPauses: 2,
 	thresholdEvolution: 0,
-	accelerationFactor: 2
+	accelerationFactor: 1
 }

@@ -2,8 +2,8 @@
 
 body {
   font-family: sans-serif;
-  background-color: #315481;
-  background-image: linear-gradient(to bottom, #C4C4C4, #FFFFFF 100%);
+  /*background-color: #315481;*/
+  /*background-image: linear-gradient(to bottom, #C4C4C4, #FFFFFF 100%);*/
   background-attachment: fixed;
  
   position: absolute;

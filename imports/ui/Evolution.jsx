@@ -7,20 +7,12 @@ import utils from './utils';
 
 import { Status } from '../api/events'
 
-// -----------------------------------------------------------------
-// TODO
-// - nothing for the moment
-// -----------------------------------------------------------------
-
 const removeUndefSpeed = speed => !speed ? 1.0 : speed
-const removeUndefState = state => !state ? 'Playing' : state
 
-// const getStatus = (s, p) => p == 'Pausing' ? 0 : getStatusNoPausing(s)
 const getStatus = (speed, state) => {
-  const myState = removeUndefState(state)
   const mySpeed = removeUndefSpeed(speed)
 
-  if (myState == 'Pausing') {
+  if (state == 'Pausing') {
     return 0
   }
 
@@ -35,7 +27,7 @@ const reachedEnd = x => Math.min(x, config.videoLength)
 
 const Evolution = ({ myData, timeNow }) => {
 
-  const d = [['ID', 'X', 'current status', '', 'size']]
+  const d = [['ID', 'X', 'Status', ' ', 'Number of Students']]
 
   const windows = {};
 
@@ -84,11 +76,9 @@ const Evolution = ({ myData, timeNow }) => {
         bubble: {opacity: '1.0'},
         enableInteractivity: 'true',
         backgroundColor: { fill:'transparent'},
-        //backgroundColor: { fill:'white', stroke: 'black', strokeWidth: 2}
         fontSize: 16,
-
-        //fontName: 'Avenir',
         chartArea: {width: '80%', height: '80%'},
+        tooltip: {trigger: 'selection'},
         legend: { position: 'none'}
       }}
       width={'1400px'}
@@ -107,21 +97,3 @@ export default createContainer(
   }),
   timeComponent
 );
-
-// var max = 0
-// var current = 0
-
-// if (now - status < 0) {
-// console.log('now : ')
-// console.log(now)
-// console.log('timeStamp : ')
-// console.log(status.timeStamp)
-// console.log('diff : ')
-// current = Math.abs(now - status.timeStamp)
-// console.log(current)
-// if (current > max) {
-//   max = current
-// }
-// console.log(max)
-// console.log('---------------------')
-// }
